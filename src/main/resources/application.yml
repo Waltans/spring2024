@@ -1,0 +1,29 @@
+server.port=8071
+
+
+
+spring.profiles.active= develop
+
+---
+spring:
+  profiles: development
+  datasource:
+      url: jdbc:postgresql://localhost:5432/develop_db
+      username: dev
+      password: admin
+
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:test_db
+    username: test
+    password: test
+
+---
+spring:
+  profiles: production
+  datasource:
+    url: jdbc:mysql://production-host:3306/prod_db
+    username: prod
+    password: production
