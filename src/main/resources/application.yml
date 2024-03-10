@@ -1,28 +1,24 @@
-server.port=8071
 
-
-
-spring.profiles.active= develop
-
+spring:
+  config:
+    activate:
+      on-profile: development
 ---
 spring:
-  profiles: development
-  datasource:
-      url: jdbc:postgresql://localhost:5432/develop_db
-      username: dev
-      password: admin
-
+  profiles:
+    active: development
 ---
 spring:
-  profiles: test
+  profiles:
+    active: test
   datasource:
-    url: jdbc:h2:mem:test_db
+    url: jdbc:postgresql://localhost:5432/postgres
     username: test
     password: test
-
 ---
 spring:
-  profiles: production
+  profiles:
+    active: production
   datasource:
     url: jdbc:mysql://production-host:3306/prod_db
     username: prod
