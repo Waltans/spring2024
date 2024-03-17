@@ -6,22 +6,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Абстрактный класс для создания пользователей.
+ * Содержит поля Имени, id, email и роли пользователя(дефолтное значение: "ученик")
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 
-@Entity
-@Table(name = "users")
 
-public abstract class User {
+@MappedSuperclass
+public class User {
+
+    public User(String name, String email, String role) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+    }
 
     /**
      * Уникальный номер пользователя
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private long id;
+    @Column(name = "id")
+    private Long id;
 
     /**
      * Имя пользователя
@@ -34,9 +43,9 @@ public abstract class User {
      * Адрес эл. почты
      */
     @Setter
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "Role")
-    private String role = "Student";
+    @Column(name = "role")
+    private String role;
 }

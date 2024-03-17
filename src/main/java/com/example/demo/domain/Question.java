@@ -2,20 +2,20 @@ package com.example.demo.domain;
 
 import com.example.demo.domain.users.Student;
 import com.example.demo.domain.users.Tutor;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+/**
+ Класс, который представляет собой вопрос, заданный ученику
+ **/
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-
 @Entity
-@Table(name = "question")
+@Table(name = "questions")
 public class Question {
 
     /**
@@ -23,8 +23,8 @@ public class Question {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_id")
-    private long id;
+    @Column(name = "id")
+    private Long id;
 
     /**
      * Репетитор, задавший вопрос
@@ -38,7 +38,7 @@ public class Question {
      * Ученик, выполнявший задание
      **/
     @ManyToOne
-    @JoinColumn(name = "Student_ID")
+    @JoinColumn(name = "student_id")
     @Setter
     private Student student;
 
@@ -67,21 +67,23 @@ public class Question {
      * Статус выполнения вопроса
      */
     @Setter
+    @Column(name = "completed")
     private boolean completed;
 
     /**
-     * Является ли вопрос непонятным(Отдельный сценарий)
+     * Является ли вопрос непонятным
      */
     @Setter
-    private boolean isUnclear;
+    @Transient
+    private boolean unclear;
 
     /**
-     * Оценка за вопрос
+     * Оценка за вопрос, допустимо от 1 до 5
      */
     @Column(name = "grade")
     private int grade;
 
-    public void setGrade(int grade) {
+    private void setGrade(int grade) {
         if (grade >= 1 && grade <= 5){
             this.grade = grade;
         }
