@@ -1,22 +1,21 @@
 package com.example.demo.domain.users;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Абстрактный класс для создания пользователей.
- * Содержит поля Имени, id, email и роли пользователя(дефолтное значение: "ученик")
+ * Содержит поля Имени, id, email и роли пользователя
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 
-
-@MappedSuperclass
-public class User {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "users")
+@Entity
+@DiscriminatorColumn(name = "role")
+public abstract class User {
 
     public User(String name, String email, String role) {
         this.name = name;
@@ -46,6 +45,9 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "role")
+    /**
+     * Роль пользователя (Student, Tutor)
+     */
+    @Column(name = "role",insertable = false, updatable=false)
     private String role;
 }

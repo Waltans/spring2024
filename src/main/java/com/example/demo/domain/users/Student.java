@@ -2,10 +2,7 @@ package com.example.demo.domain.users;
 
 import com.example.demo.domain.Question;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,16 +11,16 @@ import java.util.List;
  * Класс ученика.
  * Имеет поля id, прикрепленного репетитора, список вопросов и выполненные вопросы
  */
+@Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "students")
 @ToString
-@Setter
+@DiscriminatorValue("Student")
 public class Student extends User {
-    public Student(String name, String email, Tutor attachedTutor)
-    {
-        super(name, email,"Student");
+    public Student(String name, String email, Tutor attachedTutor) {
+        super(name, email, "Student");
         this.attachedTutor = attachedTutor;
     }
 
@@ -37,15 +34,15 @@ public class Student extends User {
     /**
      * Список вопросов, которые необходимо выполнить ученику
      */
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private List<Question> assignedTasks;
-
 
     /**
      * Вопросы, которые ученик уже сделал
      */
     @OneToMany(mappedBy = "student")
     private List<Question> completedTasks;
+
 }
 
 

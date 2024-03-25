@@ -1,6 +1,5 @@
-controller
-logs/application.log
-logs/application.log
+qodana.yaml
+logs/
 TODO.md
 HELP.md
 target/

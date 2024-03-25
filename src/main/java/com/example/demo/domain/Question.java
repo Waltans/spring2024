@@ -74,7 +74,7 @@ public class Question {
      * Является ли вопрос непонятным
      */
     @Setter
-    @Transient
+    @Column(name = "unclear")
     private boolean unclear;
 
     /**
@@ -83,7 +83,11 @@ public class Question {
     @Column(name = "grade")
     private int grade;
 
-    private void setGrade(int grade) {
+    /**
+     * Оценка за вопрос от 1 до 5, при этом целое число
+     * @param grade - оценка
+     */
+    public void setGrade(int grade) {
         if (grade >= 1 && grade <= 5){
             this.grade = grade;
         }
